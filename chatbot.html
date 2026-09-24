@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ContentCraft AI - Chat Assistant</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+        colors: {
+          brand: { 500: '#d946ef', 600: '#c026d3', 900: '#701a75' },
+          accent: { 500: '#06b6d4', 600: '#0891b2' }
+        }
+      }
+    }
+  }
+</script>
+<style>
+  .gradient-text{background:linear-gradient(135deg,#ec4899 0%,#8b5cf6 50%,#06b6d4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .gradient-bg{background:linear-gradient(135deg,#ec4899 0%,#8b5cf6 50%,#06b6d4 100%);}
+  #chat-window::-webkit-scrollbar{width:6px;}
+  #chat-window::-webkit-scrollbar-thumb{background:#334155;border-radius:9999px;}
+  .typing-dot{animation:blink 1.4s infinite both;}
+  .typing-dot:nth-child(2){animation-delay:.2s;}
+  .typing-dot:nth-child(3){animation-delay:.4s;}
+  @keyframes blink{0%,80%,100%{opacity:.2}40%{opacity:1}}
+</style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center">
+          <i class="fa-solid fa-wand-magic-sparkles text-white text-sm"></i>
+        </div>
+        <span class="text-lg font-extrabold tracking-tight text-white">Content<span class="gradient-text">Craft AI</span></span>
+      </a>
+      <a href="index.html" class="text-xs text-slate-400 hover:text-white transition-colors flex items-center space-x-1.5">
+        <i class="fa-solid fa-arrow-left text-xs"></i><span>Back to site</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Chat container -->
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-6 flex flex-col">
+
+    <!-- Tool selector -->
+    <div class="grid grid-cols-3 sm:grid-cols-5 gap-2 mb-4">
+      <button onclick="setTool('general')" id="tool-general" class="tool-btn py-2 px-2 rounded-xl text-xs font-bold border border-brand-500 bg-brand-500/10 text-brand-400 transition-all">General</button>
+      <button onclick="setTool('caption')" id="tool-caption" class="tool-btn py-2 px-2 rounded-xl text-xs font-bold border border-slate-800 bg-slate-900 text-slate-400 hover:border-slate-700 transition-all">Caption</button>
+      <button onclick="setTool('hashtags')" id="tool-hashtags" class="tool-btn py-2 px-2 rounded-xl text-xs font-bold border border-slate-800 bg-slate-900 text-slate-400 hover:border-slate-700 transition-all">Hashtags</button>
+      <button onclick="setTool('ideas')" id="tool-ideas" class="tool-btn py-2 px-2 rounded-xl text-xs font-bold border border-slate-800 bg-slate-900 text-slate-400 hover:border-slate-700 transition-all">Ideas</button>
+      <button onclick="setTool('bio')" id="tool-bio" class="tool-btn py-2 px-2 rounded-xl text-xs font-bold border border-slate-800 bg-slate-900 text-slate-400 hover:border-slate-700 transition-all">Bio</button>
+    </div>
+
+    <!-- Chat window -->
+    <div id="chat-window" class="flex-1 bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 overflow-y-auto space-y-4 mb-4" style="min-height:400px; max-height:60vh;">
+      <div class="flex items-start space-x-3">
+        <div class="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center flex-shrink-0">
+          <i class="fa-solid fa-wand-magic-sparkles text-white text-xs"></i>
+        </div>
+        <div class="bg-slate-800 rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-slate-200 max-w-[85%]">
+          Hey! I'm ContentCraft AI 👋 Pick a tool above (or just chat), tell me your topic, and I'll help you create content that fits your influencer brand. What are we making today?
+        </div>
+      </div>
+    </div>
+
+    <!-- Error banner -->
+    <div id="error-banner" class="hidden bg-rose-500/10 border border-rose-500/30 text-rose-300 text-sm rounded-xl px-4 py-3 mb-4 flex items-center space-x-2">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span id="error-text">Something went wrong.</span>
+    </div>
+
+    <!-- Input row -->
+    <div class="flex gap-3">
+      <input
+        type="text"
+        id="user-input"
+        placeholder="Type your message..."
+        class="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-colors"
+        onkeydown="if(event.key==='Enter') sendMessage();"
+      >
+      <button
+        onclick="sendMessage()"
+        id="send-btn"
+        class="px-6 py-3.5 rounded-xl font-bold text-white gradient-bg hover:opacity-90 transition-opacity text-sm flex items-center justify-center space-x-2 disabled:opacity-50"
+      >
+        <i class="fa-solid fa-paper-plane"></i>
+      </button>
+    </div>
+    <p class="text-[11px] text-slate-600 mt-2 text-center">ContentCraft AI can make mistakes. Review generated content before posting.</p>
+  </main>
+
+<script>
+/* ============================================================
+   CONFIGURATION
+   ============================================================ */
+
+// ✅ SECURE VERSION: The API key now lives on the server (Vercel environment
+// variable), never in this frontend file. This file calls our own backend
+// at /api/chat, which forwards the request to OpenRouter using the hidden key.
+const BACKEND_ENDPOINT = "/api/chat";
+
+
+const SYSTEM_PROMPT = `You are ContentCraft AI, a creative content assistant built specifically for
+social media influencers and content creators.
+
+ROLE & PURPOSE:
+Your job is to help influencers create engaging, platform-appropriate content
+quickly — including captions, post ideas, hashtags, promotional copy, and bios.
+
+TARGET AUDIENCE:
+Social media influencers and creators managing Instagram, TikTok, LinkedIn,
+and Twitter/X, ranging from beginners to established creators.
+
+COMMUNICATION STYLE:
+- Friendly, energetic, and creative — like a content-savvy friend, not a
+  corporate assistant.
+- Use casual, modern language appropriate for social media culture.
+- Keep responses concise and ready-to-use.
+
+RULES:
+1. Always ask for the platform if not specified, since tone and length differ per platform.
+2. Never generate offensive, discriminatory, or misleading content.
+3. Do not fabricate statistics, fake trends, or false claims in ad copy.
+4. Keep captions and hashtags realistic and platform-appropriate.
+5. If the user's request is vague, ask ONE clarifying question before generating.
+
+RESPONSE FORMAT:
+- Provide 2-3 options when generating captions/ideas, so the user can choose.
+- Use emojis sparingly and only when appropriate to the tone requested.
+- For hashtags, group them by reach type (high, medium, niche) when relevant.`;
+
+const TOOL_PROMPTS = {
+  general: null, // just uses the system prompt as-is
+  caption: "The user wants Instagram/social captions. Generate 3 caption options for their topic, each under 150 characters, with 1-2 relevant emojis.",
+  hashtags: "The user wants hashtags. Suggest 15 hashtags for their topic, grouped into: 5 high-reach, 5 medium-reach, and 5 niche/specific hashtags.",
+  ideas: "The user wants content ideas. Suggest 5 fresh content ideas (Reels/posts) for their niche, with a one-line concept for each.",
+  bio: "The user wants a bio. Improve or write a social media bio, under 150 characters, highlighting their niche with a clear call-to-action."
+};
+
+/* ============================================================
+   STATE
+   ============================================================ */
+let currentTool = 'general';
+let conversationHistory = []; // {role, content} pairs sent to the API
+
+/* ============================================================
+   UI: Tool switching
+   ============================================================ */
+function setTool(tool) {
+  currentTool = tool;
+  document.querySelectorAll('.tool-btn').forEach(btn => {
+    btn.classList.remove('border-brand-500', 'bg-brand-500/10', 'text-brand-400');
+    btn.classList.add('border-slate-800', 'bg-slate-900', 'text-slate-400');
+  });
+  const activeBtn = document.getElementById(`tool-${tool}`);
+  activeBtn.classList.remove('border-slate-800', 'bg-slate-900', 'text-slate-400');
+  activeBtn.classList.add('border-brand-500', 'bg-brand-500/10', 'text-brand-400');
+}
+
+/* ============================================================
+   UI: Rendering messages
+   ============================================================ */
+function appendUserMessage(text) {
+  const chatWindow = document.getElementById('chat-window');
+  const div = document.createElement('div');
+  div.className = "flex items-start justify-end space-x-3";
+  div.innerHTML = `
+    <div class="gradient-bg rounded-2xl rounded-tr-sm px-4 py-3 text-sm text-white max-w-[85%]">${escapeHtml(text)}</div>
+    <div class="w-8 h-8 rounded-lg bg-slate-700 flex items-center justify-center flex-shrink-0">
+      <i class="fa-solid fa-user text-slate-300 text-xs"></i>
+    </div>`;
+  chatWindow.appendChild(div);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
+function appendBotMessage(text) {
+  const chatWindow = document.getElementById('chat-window');
+  const div = document.createElement('div');
+  div.className = "flex items-start space-x-3";
+  div.innerHTML = `
+    <div class="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center flex-shrink-0">
+      <i class="fa-solid fa-wand-magic-sparkles text-white text-xs"></i>
+    </div>
+    <div class="bg-slate-800 rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-slate-200 max-w-[85%] whitespace-pre-wrap">${escapeHtml(text)}</div>`;
+  chatWindow.appendChild(div);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
+function appendLoadingBubble() {
+  const chatWindow = document.getElementById('chat-window');
+  const div = document.createElement('div');
+  div.id = "loading-bubble";
+  div.className = "flex items-start space-x-3";
+  div.innerHTML = `
+    <div class="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center flex-shrink-0">
+      <i class="fa-solid fa-wand-magic-sparkles text-white text-xs"></i>
+    </div>
+    <div class="bg-slate-800 rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-slate-200 flex items-center space-x-1.5">
+      <span class="typing-dot w-1.5 h-1.5 rounded-full bg-slate-400 inline-block"></span>
+      <span class="typing-dot w-1.5 h-1.5 rounded-full bg-slate-400 inline-block"></span>
+      <span class="typing-dot w-1.5 h-1.5 rounded-full bg-slate-400 inline-block"></span>
+    </div>`;
+  chatWindow.appendChild(div);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
+function removeLoadingBubble() {
+  const bubble = document.getElementById('loading-bubble');
+  if (bubble) bubble.remove();
+}
+
+function showError(message) {
+  const banner = document.getElementById('error-banner');
+  const text = document.getElementById('error-text');
+  text.textContent = message;
+  banner.classList.remove('hidden');
+  setTimeout(() => banner.classList.add('hidden'), 6000);
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+/* ============================================================
+   CORE: Send message to OpenRouter API
+   ============================================================ */
+async function sendMessage() {
+  const input = document.getElementById('user-input');
+  const sendBtn = document.getElementById('send-btn');
+  const rawMessage = input.value.trim();
+
+  // Basic validation: empty message handling
+  if (!rawMessage) {
+    showError("Please type a message before sending.");
+    return;
+  }
+
+  appendUserMessage(rawMessage);
+  input.value = "";
+  input.disabled = true;
+  sendBtn.disabled = true;
+  appendLoadingBubble();
+
+  // Build the message list sent to the model
+  const toolInstruction = TOOL_PROMPTS[currentTool];
+  const userContent = toolInstruction ? `${toolInstruction}\n\nUser's topic/request: ${rawMessage}` : rawMessage;
+
+  conversationHistory.push({ role: "user", content: userContent });
+
+  const messages = [
+    { role: "system", content: SYSTEM_PROMPT },
+    ...conversationHistory
+  ];
+
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
+
+    // Calls OUR backend, not OpenRouter directly. The backend holds the real key.
+    const response = await fetch(BACKEND_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        messages: messages
+      }),
+      signal: controller.signal
+    });
+
+    clearTimeout(timeoutId);
+    removeLoadingBubble();
+
+    if (!response.ok) {
+      // Failed API request handling
+      const errBody = await response.text();
+      console.error("OpenRouter error:", response.status, errBody);
+      if (response.status === 401) {
+        showError("Invalid API key. Please check your OpenRouter key.");
+      } else if (response.status === 429) {
+        showError("Rate limit reached. Please wait a moment and try again.");
+      } else {
+        showError(`Request failed (error ${response.status}). Please try again.`);
+      }
+      conversationHistory.pop(); // remove the failed turn so history stays clean
+      return;
+    }
+
+    const data = await response.json();
+    const reply = data?.choices?.[0]?.message?.content;
+
+    if (!reply) {
+      showError("Received an empty response from the AI. Please try again.");
+      conversationHistory.pop();
+      return;
+    }
+
+    appendBotMessage(reply);
+    conversationHistory.push({ role: "assistant", content: reply });
+
+  } catch (err) {
+    removeLoadingBubble();
+    console.error("Network/error:", err);
+    if (err.name === "AbortError") {
+      showError("Request timed out. Please check your connection and try again.");
+    } else {
+      showError("Network error — could not reach the AI. Please check your connection.");
+    }
+    conversationHistory.pop();
+  } finally {
+    input.disabled = false;
+    sendBtn.disabled = false;
+    input.focus();
+  }
+}
+</script>
+</body>
+</html>

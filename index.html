@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ContentCraft AI - AI Content Creation Assistant for Influencers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fdf4ff',
+                            100: '#fae8ff',
+                            500: '#d946ef',
+                            600: '#c026d3',
+                            700: '#a21caf',
+                            900: '#701a75',
+                        },
+                        accent: {
+                            500: '#06b6d4',
+                            600: '#0891b2'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #06b6d4 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:Plus Jakarta Sans, sans-serif;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.pointer-events-none{pointer-events:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.-inset-1{inset:-0.25rem}.inset-0{inset:0px}.-bottom-16{bottom:-4rem}.-left-16{left:-4rem}.-right-16{right:-4rem}.-top-16{top:-4rem}.-top-5{top:-1.25rem}.left-0{left:0px}.left-1\/2{left:50%}.left-1\/4{left:25%}.left-8{left:2rem}.right-0{right:0px}.right-3{right:0.75rem}.top-0{top:0px}.top-1\/3{top:33.333333%}.top-1\/4{top:25%}.top-3{top:0.75rem}.z-10{z-index:10}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.mb-1{margin-bottom:0.25rem}.mb-10{margin-bottom:2.5rem}.mb-12{margin-bottom:3rem}.mb-16{margin-bottom:4rem}.mb-2{margin-bottom:0.5rem}.mb-20{margin-bottom:5rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.ml-1{margin-left:0.25rem}.ml-2{margin-left:0.5rem}.mr-1\.5{margin-right:0.375rem}.mr-2{margin-right:0.5rem}.mt-16{margin-top:4rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.mt-8{margin-top:2rem}.block{display:block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.h-10{height:2.5rem}.h-14{height:3.5rem}.h-20{height:5rem}.h-3{height:0.75rem}.h-64{height:16rem}.h-72{height:18rem}.h-8{height:2rem}.h-96{height:24rem}.min-h-\[80px\]{min-height:80px}.w-10{width:2.5rem}.w-14{width:3.5rem}.w-3{width:0.75rem}.w-64{width:16rem}.w-72{width:18rem}.w-8{width:2rem}.w-96{width:24rem}.w-fit{width:-moz-fit-content;width:fit-content}.w-full{width:100%}.max-w-2xl{max-width:42rem}.max-w-3xl{max-width:48rem}.max-w-4xl{max-width:56rem}.max-w-5xl{max-width:64rem}.max-w-7xl{max-width:80rem}.max-w-md{max-width:28rem}.flex-1{flex:1 1 0%}.-translate-x-1\/2{--tw-translate-x:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.-translate-y-1\/2{--tw-translate-y:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.transform{transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@keyframes float{0%, 100%{transform:translateY(0px)}50%{transform:translateY(-15px)}}.animate-float{animation:float 6s ease-in-out infinite}@keyframes pulse{50%{opacity:.5}}.animate-pulse{animation:pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-8{gap:2rem}.space-x-1 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.25rem * var(--tw-space-x-reverse));margin-left:calc(0.25rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-1\.5 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.375rem * var(--tw-space-x-reverse));margin-left:calc(0.375rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-2 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.5rem * var(--tw-space-x-reverse));margin-left:calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-3 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.75rem * var(--tw-space-x-reverse));margin-left:calc(0.75rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-4 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(1rem * var(--tw-space-x-reverse));margin-left:calc(1rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-6 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(1.5rem * var(--tw-space-x-reverse));margin-left:calc(1.5rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-8 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(2rem * var(--tw-space-x-reverse));margin-left:calc(2rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-2 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.5rem * var(--tw-space-y-reverse))}.space-y-3 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.75rem * var(--tw-space-y-reverse))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.overflow-x-hidden{overflow-x:hidden}.scroll-smooth{scroll-behavior:smooth}.rounded-2xl{border-radius:1rem}.rounded-3xl{border-radius:1.5rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.border{border-width:1px}.border-y{border-top-width:1px;border-bottom-width:1px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-accent-500\/20{border-color:rgb(6 182 212 / 0.2)}.border-brand-500{--tw-border-opacity:1;border-color:rgb(217 70 239 / var(--tw-border-opacity, 1))}.border-brand-500\/20{border-color:rgb(217 70 239 / 0.2)}.border-brand-500\/30{border-color:rgb(217 70 239 / 0.3)}.border-emerald-500\/20{border-color:rgb(16 185 129 / 0.2)}.border-purple-500\/20{border-color:rgb(168 85 247 / 0.2)}.border-rose-500\/20{border-color:rgb(244 63 94 / 0.2)}.border-slate-700{--tw-border-opacity:1;border-color:rgb(51 65 85 / var(--tw-border-opacity, 1))}.border-slate-800{--tw-border-opacity:1;border-color:rgb(30 41 59 / var(--tw-border-opacity, 1))}.border-slate-800\/60{border-color:rgb(30 41 59 / 0.6)}.border-slate-800\/80{border-color:rgb(30 41 59 / 0.8)}.border-slate-900{--tw-border-opacity:1;border-color:rgb(15 23 42 / var(--tw-border-opacity, 1))}.bg-slate-950{--tw-bg-opacity:1;background-color:rgb(2 6 23 / var(--tw-bg-opacity, 1))}.bg-accent-500\/10{background-color:rgb(6 182 212 / 0.1)}.bg-accent-500\/15{background-color:rgb(6 182 212 / 0.15)}.bg-accent-500\/20{background-color:rgb(6 182 212 / 0.2)}.bg-amber-500{--tw-bg-opacity:1;background-color:rgb(245 158 11 / var(--tw-bg-opacity, 1))}.bg-brand-500\/10{background-color:rgb(217 70 239 / 0.1)}.bg-brand-500\/20{background-color:rgb(217 70 239 / 0.2)}.bg-brand-600\/20{background-color:rgb(192 38 211 / 0.2)}.bg-emerald-500{--tw-bg-opacity:1;background-color:rgb(16 185 129 / var(--tw-bg-opacity, 1))}.bg-emerald-500\/10{background-color:rgb(16 185 129 / 0.1)}.bg-purple-500\/10{background-color:rgb(168 85 247 / 0.1)}.bg-rose-500{--tw-bg-opacity:1;background-color:rgb(244 63 94 / var(--tw-bg-opacity, 1))}.bg-rose-500\/10{background-color:rgb(244 63 94 / 0.1)}.bg-slate-800\/80{background-color:rgb(30 41 59 / 0.8)}.bg-slate-900{--tw-bg-opacity:1;background-color:rgb(15 23 42 / var(--tw-bg-opacity, 1))}.bg-slate-900\/20{background-color:rgb(15 23 42 / 0.2)}.bg-slate-900\/30{background-color:rgb(15 23 42 / 0.3)}.bg-slate-900\/40{background-color:rgb(15 23 42 / 0.4)}.bg-slate-900\/60{background-color:rgb(15 23 42 / 0.6)}.bg-slate-900\/80{background-color:rgb(15 23 42 / 0.8)}.bg-slate-950\/80{background-color:rgb(2 6 23 / 0.8)}.bg-white\/10{background-color:rgb(255 255 255 / 0.1)}.bg-gradient-to-br{background-image:linear-gradient(to bottom right, var(--tw-gradient-stops))}.bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}.from-brand-500{--tw-gradient-from:#d946ef var(--tw-gradient-from-position);--tw-gradient-to:rgb(217 70 239 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-brand-900\/40{--tw-gradient-from:rgb(112 26 117 / 0.4) var(--tw-gradient-from-position);--tw-gradient-to:rgb(112 26 117 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-slate-900{--tw-gradient-from:#0f172a var(--tw-gradient-from-position);--tw-gradient-to:rgb(15 23 42 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.to-accent-500{--tw-gradient-to:#06b6d4 var(--tw-gradient-to-position)}.to-slate-950{--tw-gradient-to:#020617 var(--tw-gradient-to-position)}.object-cover{object-fit:cover}.p-2\.5{padding:0.625rem}.p-4{padding:1rem}.p-5{padding:1.25rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-2\.5{padding-left:0.625rem;padding-right:0.625rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-3\.5{padding-left:0.875rem;padding-right:0.875rem}.px-4{padding-left:1rem;padding-right:1rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.px-8{padding-left:2rem;padding-right:2rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.py-12{padding-top:3rem;padding-bottom:3rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem}.py-20{padding-top:5rem;padding-bottom:5rem}.py-24{padding-top:6rem;padding-bottom:6rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-3\.5{padding-top:0.875rem;padding-bottom:0.875rem}.py-4{padding-top:1rem;padding-bottom:1rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pb-20{padding-bottom:5rem}.pb-3{padding-bottom:0.75rem}.pb-4{padding-bottom:1rem}.pb-6{padding-bottom:1.5rem}.pt-2{padding-top:0.5rem}.pt-3{padding-top:0.75rem}.pt-32{padding-top:8rem}.pt-4{padding-top:1rem}.pt-8{padding-top:2rem}.text-left{text-align:left}.text-center{text-align:center}.font-sans{font-family:Plus Jakarta Sans, sans-serif}.font-mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-relaxed{line-height:1.625}.leading-tight{line-height:1.25}.tracking-tight{letter-spacing:-0.025em}.tracking-wider{letter-spacing:0.05em}.tracking-widest{letter-spacing:0.1em}.text-slate-100{--tw-text-opacity:1;color:rgb(241 245 249 / var(--tw-text-opacity, 1))}.text-brand-500{--tw-text-opacity:1;color:rgb(217 70 239 / var(--tw-text-opacity, 1))}.text-cyan-400{--tw-text-opacity:1;color:rgb(34 211 238 / var(--tw-text-opacity, 1))}.text-emerald-400{--tw-text-opacity:1;color:rgb(52 211 153 / var(--tw-text-opacity, 1))}.text-green-400{--tw-text-opacity:1;color:rgb(74 222 128 / var(--tw-text-opacity, 1))}.text-purple-400{--tw-text-opacity:1;color:rgb(192 132 252 / var(--tw-text-opacity, 1))}.text-red-500{--tw-text-opacity:1;color:rgb(239 68 68 / var(--tw-text-opacity, 1))}.text-rose-400{--tw-text-opacity:1;color:rgb(251 113 133 / var(--tw-text-opacity, 1))}.text-rose-500{--tw-text-opacity:1;color:rgb(244 63 94 / var(--tw-text-opacity, 1))}.text-sky-400{--tw-text-opacity:1;color:rgb(56 189 248 / var(--tw-text-opacity, 1))}.text-slate-200{--tw-text-opacity:1;color:rgb(226 232 240 / var(--tw-text-opacity, 1))}.text-slate-300{--tw-text-opacity:1;color:rgb(203 213 225 / var(--tw-text-opacity, 1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184 / var(--tw-text-opacity, 1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.placeholder-slate-500::placeholder{--tw-placeholder-opacity:1;color:rgb(100 116 139 / var(--tw-placeholder-opacity, 1))}.opacity-10{opacity:0.1}.opacity-30{opacity:0.3}.opacity-60{opacity:0.6}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-xl{--tw-shadow:0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-brand-500\/25{--tw-shadow-color:rgb(217 70 239 / 0.25);--tw-shadow:var(--tw-shadow-colored)}.shadow-brand-500\/30{--tw-shadow-color:rgb(217 70 239 / 0.3);--tw-shadow:var(--tw-shadow-colored)}.blur{--tw-blur:blur(8px);filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.blur-3xl{--tw-blur:blur(64px);filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.blur-\[100px\]{--tw-blur:blur(100px);filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.blur-\[120px\]{--tw-blur:blur(120px);filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-blur-md{--tw-backdrop-blur:blur(12px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-opacity{transition-property:opacity;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.selection\:bg-brand-500 *::selection{--tw-bg-opacity:1;background-color:rgb(217 70 239 / var(--tw-bg-opacity, 1))}.selection\:text-white *::selection{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.selection\:bg-brand-500::selection{--tw-bg-opacity:1;background-color:rgb(217 70 239 / var(--tw-bg-opacity, 1))}.selection\:text-white::selection{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.hover\:-translate-y-0\.5:hover{--tw-translate-y:-0.125rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\:-translate-y-1:hover{--tw-translate-y:-0.25rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\:border-brand-500\/50:hover{border-color:rgb(217 70 239 / 0.5)}.hover\:border-slate-700:hover{--tw-border-opacity:1;border-color:rgb(51 65 85 / var(--tw-border-opacity, 1))}.hover\:bg-slate-800:hover{--tw-bg-opacity:1;background-color:rgb(30 41 59 / var(--tw-bg-opacity, 1))}.hover\:bg-white\/20:hover{background-color:rgb(255 255 255 / 0.2)}.hover\:text-brand-500:hover{--tw-text-opacity:1;color:rgb(217 70 239 / var(--tw-text-opacity, 1))}.hover\:text-slate-400:hover{--tw-text-opacity:1;color:rgb(148 163 184 / var(--tw-text-opacity, 1))}.hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.hover\:opacity-90:hover{opacity:0.9}.hover\:opacity-95:hover{opacity:0.95}.focus\:border-brand-500:focus{--tw-border-opacity:1;border-color:rgb(217 70 239 / var(--tw-border-opacity, 1))}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.group:hover .group-hover\:scale-110{--tw-scale-x:1.1;--tw-scale-y:1.1;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@media (min-width: 640px){.sm\:mt-0{margin-top:0px}.sm\:w-auto{width:auto}.sm\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}.sm\:flex-row{flex-direction:row}.sm\:space-x-4 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(1rem * var(--tw-space-x-reverse));margin-left:calc(1rem * calc(1 - var(--tw-space-x-reverse)))}.sm\:space-y-0 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0px * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0px * var(--tw-space-y-reverse))}.sm\:p-16{padding:4rem}.sm\:p-6{padding:1.5rem}.sm\:p-8{padding:2rem}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:text-4xl{font-size:2.25rem;line-height:2.5rem}.sm\:text-5xl{font-size:3rem;line-height:1}.sm\:text-6xl{font-size:3.75rem;line-height:1}.sm\:text-lg{font-size:1.125rem;line-height:1.75rem}.sm\:text-xl{font-size:1.25rem;line-height:1.75rem}}@media (min-width: 768px){.md\:col-span-1{grid-column:span 1 / span 1}.md\:col-span-2{grid-column:span 2 / span 2}.md\:flex{display:flex}.md\:hidden{display:none}.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.md\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}.md\:gap-16{gap:4rem}.md\:pb-32{padding-bottom:8rem}.md\:pt-44{padding-top:11rem}}@media (min-width: 1024px){.lg\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.lg\:px-8{padding-left:2rem;padding-right:2rem}.lg\:text-7xl{font-size:4.5rem;line-height:1}}</style></head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-brand-500 selection:text-white overflow-x-hidden">
+
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800/80 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center shadow-lg shadow-brand-500/30">
+                    <i class="fa-solid fa-wand-magic-sparkles text-white text-lg"></i>
+                </div>
+                <span class="text-xl font-extrabold tracking-tight text-white">Content<span class="gradient-text">Craft AI</span></span>
+            </div>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                <a href="#features" class="hover:text-brand-500 transition-colors">Features</a>
+                <a href="#how-it-works" class="hover:text-brand-500 transition-colors">How It Works</a>
+                <a href="#interactive-demo" class="hover:text-brand-500 transition-colors">AI Demo</a>
+                <a href="#faq" class="hover:text-brand-500 transition-colors">FAQ</a>
+            </nav>
+
+            <!-- CTA Button -->
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="chatbot.html" class="px-5 py-2.5 rounded-xl font-semibold text-sm text-white gradient-bg shadow-lg shadow-brand-500/25 hover:opacity-90 transition-all transform hover:-translate-y-0.5">
+                    Try ContentCraft AI
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="menu-toggle" class="md:hidden text-slate-300 hover:text-white focus:outline-none">
+                <i class="fa-solid fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-900 border-b border-slate-800 px-4 pt-2 pb-6 space-y-3">
+            <a href="#features" class="block py-2 text-slate-300 hover:text-brand-500 font-medium">Features</a>
+            <a href="#how-it-works" class="block py-2 text-slate-300 hover:text-brand-500 font-medium">How It Works</a>
+            <a href="#interactive-demo" class="block py-2 text-slate-300 hover:text-brand-500 font-medium">AI Demo</a>
+            <a href="#faq" class="block py-2 text-slate-300 hover:text-brand-500 font-medium">FAQ</a>
+            <div class="pt-2">
+                <a href="chatbot.html" class="block text-center w-full py-3 rounded-xl font-semibold text-white gradient-bg shadow-lg">
+                    Try ContentCraft AI
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden">
+        <!-- Glow background accents -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute top-1/3 left-1/4 w-72 h-72 bg-accent-500/15 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto">
+                <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-slate-900/80 border border-slate-800 text-brand-400 text-xs font-semibold mb-6 animate-pulse">
+                    <i class="fa-solid fa-bolt text-brand-500"></i>
+                    <span>The #1 AI Creator Assistant for Instagram, TikTok &amp; YouTube</span>
+                </div>
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight mb-6">
+                    Create Viral Content <span class="gradient-text">10x Faster</span> with AI.
+                </h1>
+                <p class="text-lg sm:text-xl text-slate-400 mb-10 leading-relaxed">
+                    Stop staring at a blank screen. Generate engaging captions, trending hashtags, high-converting ad copy, and viral ideas tailored specifically for your brand voice in seconds.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="chatbot.html" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-white gradient-bg shadow-xl shadow-brand-500/30 hover:opacity-95 transition-all transform hover:-translate-y-1 text-center flex items-center justify-center space-x-3">
+                        <span>Try ContentCraft AI</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="#interactive-demo" class="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-slate-300 bg-slate-900 hover:bg-slate-800 border border-slate-800 transition-all text-center flex items-center justify-center space-x-2">
+                        <i class="fa-regular fa-circle-play text-brand-500"></i>
+                        <span>See Live Demo</span>
+                    </a>
+                </div>
+                <div class="mt-8 flex items-center justify-center space-x-6 text-xs text-slate-400">
+                    <span class="flex items-center"><i class="fa-solid fa-check text-green-400 mr-1.5"></i> No credit card required</span>
+                    <span class="flex items-center"><i class="fa-solid fa-check text-green-400 mr-1.5"></i> Free 14-day trial</span>
+                    <span class="flex items-center"><i class="fa-solid fa-check text-green-400 mr-1.5"></i> Used by 50k+ creators</span>
+                </div>
+            </div>
+
+            <!-- Hero Mockup Preview Card -->
+            <div class="mt-16 max-w-5xl mx-auto relative animate-float">
+                <div class="absolute -inset-1 bg-gradient-to-r from-brand-500 to-accent-500 rounded-2xl blur opacity-30"></div>
+                <div class="relative bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-2xl overflow-hidden">
+                    <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-rose-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                        </div>
+                        <div class="text-xs text-slate-500 font-mono">contentcraft-studio.ai/generate</div>
+                        <div class="flex items-center space-x-2 text-slate-400">
+                            <i class="fa-solid fa-signal text-xs"></i>
+                            <i class="fa-solid fa-wifi text-xs"></i>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                            <div class="text-xs text-brand-400 font-semibold mb-1 uppercase tracking-wider">Input Prompt</div>
+                            <p class="text-sm text-slate-300">"Give me 3 Instagram Reel hooks about morning productivity routines for remote workers."</p>
+                        </div>
+                        <div class="md:col-span-2 bg-slate-950 p-4 rounded-xl border border-slate-800 relative">
+                            <div class="absolute top-3 right-3 flex items-center space-x-1 text-xs text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
+                                <i class="fa-solid fa-sparkles"></i>
+                                <span>Generated in 0.8s</span>
+                            </div>
+                            <div class="text-xs text-accent-400 font-semibold mb-2 uppercase tracking-wider">AI Output Results</div>
+                            <ul class="space-y-2 text-sm text-slate-200">
+                                <li class="bg-slate-900 p-2.5 rounded-lg border border-slate-800">1. "Stop waking up at 5 AM if your routine looks like this..." ☕️</li>
+                                <li class="bg-slate-900 p-2.5 rounded-lg border border-slate-800">2. "My remote work setup that saved me 10 hours a week." 💻</li>
+                                <li class="bg-slate-900 p-2.5 rounded-lg border border-slate-800">3. "The 3-step morning ritual of top 1% digital nomads." 🚀</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Bar -->
+    <div class="border-y border-slate-800/60 bg-slate-900/40 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-xs font-semibold uppercase tracking-widest text-slate-500 mb-6">Trusted by content creators featured on</p>
+            <div class="flex flex-wrap items-center justify-center gap-8 md:gap-16 opacity-60 text-slate-400 font-bold text-lg tracking-wider">
+                <span><i class="fa-brands fa-instagram text-xl mr-2 text-rose-500"></i> INSTAFAME</span>
+                <span><i class="fa-brands fa-tiktok text-xl mr-2 text-cyan-400"></i> TIKTRENDS</span>
+                <span><i class="fa-brands fa-youtube text-xl mr-2 text-red-500"></i> CREATORMAG</span>
+                <span><i class="fa-brands fa-twitter text-xl mr-2 text-sky-400"></i> SOCIALPULSE</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <span class="text-brand-500 text-xs font-bold uppercase tracking-widest bg-brand-500/10 px-3.5 py-1.5 rounded-full border border-brand-500/20">Powerful Tools for Creators</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-4 mb-6">Everything You Need to Scale Your Social Media</h2>
+                <p class="text-slate-400 text-base sm:text-lg">Designed specifically to eliminate creator burnout and maximize algorithmic reach across all major platforms.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-8 hover:border-brand-500/50 transition-all group hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center text-brand-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-pen-nib"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Caption Generation</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Craft engaging, hook-driven captions tailored to your brand voice with custom call-to-actions that boost comments and saves.</p>
+                    <span class="inline-flex items-center text-xs text-brand-400 font-semibold">Learn more <i class="fa-solid fa-arrow-right ml-1 text-xs"></i></span>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-8 hover:border-brand-500/50 transition-all group hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-xl bg-accent-500/10 border border-accent-500/20 flex items-center justify-center text-accent-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-hashtag"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Hashtag Suggestions</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Stop guessing. Get smart hashtag mixes categorized by reach, niche, and virality potential to get your content discovered instantly.</p>
+                    <span class="inline-flex items-center text-xs text-accent-400 font-semibold">Learn more <i class="fa-solid fa-arrow-right ml-1 text-xs"></i></span>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-8 hover:border-brand-500/50 transition-all group hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Content Ideas</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Never run out of inspiration. Generate weekly content calendars, trending reel topics, and video scripts tailored to your specific niche.</p>
+                    <span class="inline-flex items-center text-xs text-purple-400 font-semibold">Learn more <i class="fa-solid fa-arrow-right ml-1 text-xs"></i></span>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-8 hover:border-brand-500/50 transition-all group hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-bullhorn"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Ad Copy</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Write high-converting sponsored post scripts, UGC briefs, and paid ad copy that turn followers into paying customers.</p>
+                    <span class="inline-flex items-center text-xs text-rose-400 font-semibold">Learn more <i class="fa-solid fa-arrow-right ml-1 text-xs"></i></span>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-8 hover:border-brand-500/50 transition-all group hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-id-card"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Bio Optimization</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Transform your profile into a conversion machine with catchy, keyword-optimized bios and strategic link placements.</p>
+                    <span class="inline-flex items-center text-xs text-emerald-400 font-semibold">Learn more <i class="fa-solid fa-arrow-right ml-1 text-xs"></i></span>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="bg-gradient-to-br from-brand-900/40 to-accent-900/40 border border-brand-500/30 rounded-2xl p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 rounded-xl bg-white/10 flex items-center justify-center text-white text-2xl mb-6">
+                            <i class="fa-solid fa-wand-magic"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Custom Tone Matcher</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-4">Feed ContentCraft your past posts and watch our AI mimic your exact authentic tone, humor, and writing style effortlessly.</p>
+                    </div>
+                    <a href="#cta" class="inline-flex items-center text-xs text-white font-bold bg-white/10 hover:bg-white/20 py-2.5 px-4 rounded-xl w-fit transition-colors">
+                        <span>Unlock All Features</span>
+                        <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive AI Assistant Demo Sandbox -->
+    <section id="interactive-demo" class="py-20 bg-slate-900/30 border-y border-slate-800">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-accent-400 text-xs font-bold uppercase tracking-widest bg-accent-500/10 px-3.5 py-1.5 rounded-full border border-accent-500/20">Try It Live</span>
+                <h2 class="text-3xl font-extrabold text-white mt-4 mb-3">Test Drive ContentCraft AI</h2>
+                <p class="text-slate-400 text-sm">Select a content tool, enter your topic, and experience instant generation.</p>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+                    <button onclick="setTool('caption')" id="btn-caption" class="tool-tab py-2.5 px-3 rounded-xl text-xs font-bold border border-brand-500 bg-brand-500/10 text-brand-400 transition-all flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-pen"></i><span>Caption</span>
+                    </button>
+                    <button onclick="setTool('hashtags')" id="btn-hashtags" class="tool-tab py-2.5 px-3 rounded-xl text-xs font-bold border border-slate-800 bg-slate-950 text-slate-400 hover:border-slate-700 transition-all flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-hashtag"></i><span>Hashtags</span>
+                    </button>
+                    <button onclick="setTool('ideas')" id="btn-ideas" class="tool-tab py-2.5 px-3 rounded-xl text-xs font-bold border border-slate-800 bg-slate-950 text-slate-400 hover:border-slate-700 transition-all flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-lightbulb"></i><span>Ideas</span>
+                    </button>
+                    <button onclick="setTool('bio')" id="btn-bio" class="tool-tab py-2.5 px-3 rounded-xl text-xs font-bold border border-slate-800 bg-slate-950 text-slate-400 hover:border-slate-700 transition-all flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-id-card"></i><span>Bio</span>
+                    </button>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label id="input-label" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">What is your post about?</label>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <input type="text" id="demo-input" value="A healthy morning smoothie recipe for busy entrepreneurs" class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-500 transition-colors">
+                            <button onclick="generateContent()" id="generate-btn" class="px-6 py-3 rounded-xl font-bold text-white gradient-bg hover:opacity-90 transition-opacity text-sm flex items-center justify-center space-x-2">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                <span>Generate AI</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 bg-slate-950 border border-slate-800 rounded-xl p-5 relative">
+                        <div class="flex items-center justify-between mb-3 border-b border-slate-900 pb-3">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center">
+                                <i class="fa-solid fa-robot text-brand-500 mr-2"></i> Result output
+                            </span>
+                            <button onclick="copyResult()" class="text-xs text-slate-400 hover:text-white bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800 flex items-center space-x-1.5 transition-colors">
+                                <i class="fa-regular fa-copy"></i>
+                                <span id="copy-text">Copy</span>
+                            </button>
+                        </div>
+                        <div id="demo-output" class="text-sm text-slate-200 leading-relaxed min-h-[80px] flex items-center">
+                            Click "Generate AI" to watch ContentCraft AI write your caption instantly!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <span class="text-accent-400 text-xs font-bold uppercase tracking-widest bg-accent-500/10 px-3.5 py-1.5 rounded-full border border-accent-500/20">Simple 3-Step Process</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-4 mb-6">How ContentCraft Works</h2>
+                <p class="text-slate-400 text-base sm:text-lg">Get started in seconds and streamline your entire creator workflow.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+                <!-- Step 1 -->
+                <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-8 relative">
+                    <div class="absolute -top-5 left-8 w-10 h-10 rounded-xl gradient-bg text-white font-extrabold text-lg flex items-center justify-center shadow-lg">1</div>
+                    <div class="pt-4">
+                        <div class="text-brand-400 text-3xl mb-4"><i class="fa-solid fa-sliders"></i></div>
+                        <h3 class="text-xl font-bold text-white mb-3">Select Your Tool &amp; Tone</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Choose whether you need a caption, hook, hashtags, or ad copy. Set your brand voice (casual, professional, witty, or hype).</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-8 relative">
+                    <div class="absolute -top-5 left-8 w-10 h-10 rounded-xl gradient-bg text-white font-extrabold text-lg flex items-center justify-center shadow-lg">2</div>
+                    <div class="pt-4">
+                        <div class="text-accent-400 text-3xl mb-4"><i class="fa-solid fa-comment-dots"></i></div>
+                        <h3 class="text-xl font-bold text-white mb-3">Prompt the AI Assistant</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Type a quick 1-sentence idea or paste your raw video transcript. Our custom models instantly understand creator context.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-8 relative">
+                    <div class="absolute -top-5 left-8 w-10 h-10 rounded-xl gradient-bg text-white font-extrabold text-lg flex items-center justify-center shadow-lg">3</div>
+                    <div class="pt-4">
+                        <div class="text-purple-400 text-3xl mb-4"><i class="fa-solid fa-rocket"></i></div>
+                        <h3 class="text-xl font-bold text-white mb-3">Copy, Paste &amp; Go Viral</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Review the generated variations, pick your favorite with one click, and watch your engagement and follower growth skyrocket.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-slate-900/20 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-500 text-xs font-bold uppercase tracking-widest bg-brand-500/10 px-3.5 py-1.5 rounded-full border border-brand-500/20">Creator Success</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-4">Loved by 50,000+ Creators Worldwide</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between">
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6">"ContentCraft AI has literally saved me 15+ hours a week. My Instagram Reel captions get double the comments now because the hooks are so catchy!"</p>
+                    <div class="flex items-center space-x-3">
+                        <img src="https://api.dicebear.com/7.x/initials/svg?seed=Sarah%20Jenkins&backgroundColor=d946ef" alt="Sarah J." class="w-10 h-10 rounded-full object-cover">
+                        <div>
+                            <h4 class="text-sm font-bold text-white">Sarah Jenkins</h4>
+                            <p class="text-xs text-slate-400">Lifestyle Creator (@sarahstyle) • 420k Subs</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between">
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6">"The hashtag generator alone is worth 10x the price. It finds niche tags I never would have thought of that push my TikToks onto the For You Page consistently."</p>
+                    <div class="flex items-center space-x-3">
+                        <img src="https://api.dicebear.com/7.x/initials/svg?seed=Marcus%20Vance&backgroundColor=06b6d4" alt="Marcus P." class="w-10 h-10 rounded-full object-cover">
+                        <div>
+                            <h4 class="text-sm font-bold text-white">Marcus Vance</h4>
+                            <p class="text-xs text-slate-400">Tech &amp; AI Influencer • 850k Followers</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between">
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6">"As a UGC creator juggling 10 brand deals a month, ContentCraft's ad copy tool is my secret weapon. Clients are blown away by how fast I turn around scripts."</p>
+                    <div class="flex items-center space-x-3">
+                        <img src="https://api.dicebear.com/7.x/initials/svg?seed=Elena%20Rostova&backgroundColor=a21caf" alt="Elena R." class="w-10 h-10 rounded-full object-cover">
+                        <div>
+                            <h4 class="text-sm font-bold text-white">Elena Rostova</h4>
+                            <p class="text-xs text-slate-400">UGC Creator &amp; Entrepreneur • 210k Reach</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-24">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-brand-500 text-xs font-bold uppercase tracking-widest bg-brand-500/10 px-3.5 py-1.5 rounded-full border border-brand-500/20">Got Questions?</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-4 mb-3">Frequently Asked Questions</h2>
+                <p class="text-slate-400 text-sm">Everything you need to know about ContentCraft AI.</p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden transition-all">
+                    <button onclick="toggleFaq(1)" class="w-full px-6 py-4 text-left font-semibold text-white flex items-center justify-between focus:outline-none">
+                        <span>How is ContentCraft AI different from standard ChatGPT?</span>
+                        <i id="faq-icon-1" class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform"></i>
+                    </button>
+                    <div id="faq-content-1" class="hidden px-6 pb-4 text-sm text-slate-400 leading-relaxed border-t border-slate-800/60 pt-3">
+                        ContentCraft AI is specifically fine-tuned on millions of viral social media posts, high-performing reels, and creator hooks. Unlike standard ChatGPT which sounds robotic, ContentCraft understands social media algorithms, character limits, emoji spacing, and viral hooks out of the box.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden transition-all">
+                    <button onclick="toggleFaq(2)" class="w-full px-6 py-4 text-left font-semibold text-white flex items-center justify-between focus:outline-none">
+                        <span>Can I customize the AI to match my exact brand voice?</span>
+                        <i id="faq-icon-2" class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform"></i>
+                    </button>
+                    <div id="faq-content-2" class="hidden px-6 pb-4 text-sm text-slate-400 leading-relaxed border-t border-slate-800/60 pt-3">
+                        Yes! You can feed ContentCraft 3 to 5 samples of your best-performing past posts or describe your persona (e.g., sarcastic fitness coach, professional tech reviewer), and the AI will adapt its tone accordingly.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden transition-all">
+                    <button onclick="toggleFaq(3)" class="w-full px-6 py-4 text-left font-semibold text-white flex items-center justify-between focus:outline-none">
+                        <span>Which social media platforms are supported?</span>
+                        <i id="faq-icon-3" class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform"></i>
+                    </button>
+                    <div id="faq-content-3" class="hidden px-6 pb-4 text-sm text-slate-400 leading-relaxed border-t border-slate-800/60 pt-3">
+                        ContentCraft AI supports Instagram (Reels, Carousels, Captions), TikTok (Scripts, Hooks), YouTube (Titles, Video Descriptions, Shorts), LinkedIn, and Twitter/X threads.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden transition-all">
+                    <button onclick="toggleFaq(4)" class="w-full px-6 py-4 text-left font-semibold text-white flex items-center justify-between focus:outline-none">
+                        <span>Is there a free trial available?</span>
+                        <i id="faq-icon-4" class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform"></i>
+                    </button>
+                    <div id="faq-content-4" class="hidden px-6 pb-4 text-sm text-slate-400 leading-relaxed border-t border-slate-800/60 pt-3">
+                        Yes! We offer a 14-day free trial with full access to all features and generation tools. No credit card required to get started.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Banner Section -->
+    <section id="cta" class="py-20 relative overflow-hidden">
+        <div class="absolute inset-0 gradient-bg opacity-10 blur-3xl pointer-events-none"></div>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 rounded-3xl p-8 sm:p-16 text-center shadow-2xl relative overflow-hidden">
+                <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-brand-500/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -left-16 -top-16 w-64 h-64 bg-accent-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-slate-800/80 border border-slate-700 text-brand-400 text-xs font-semibold mb-6">
+                    <i class="fa-solid fa-fire text-brand-500"></i>
+                    <span>Join 50,000+ creators growing faster</span>
+                </div>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white mb-6">Ready to Supercharge Your Social Media?</h2>
+                <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto mb-10">Start your 14-day free trial today. Generate viral captions, killer hooks, and endless content ideas instantly.</p>
+                
+                <div class="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
+                    <input type="email" placeholder="Enter your work email" class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-3.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-colors">
+                    <button onclick="window.location.href='chatbot.html'" class="px-8 py-3.5 rounded-xl font-bold text-white gradient-bg shadow-xl shadow-brand-500/30 hover:opacity-95 transition-all text-sm">
+                        Try ContentCraft AI
+                    </button>
+                </div>
+                <p class="text-xs text-slate-500 mt-4">No credit card required • Instant access • Cancel anytime</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800/80 bg-slate-950 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div class="space-y-4 md:col-span-1">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center">
+                            <i class="fa-solid fa-wand-magic-sparkles text-white text-sm"></i>
+                        </div>
+                        <span class="text-lg font-extrabold tracking-tight text-white">Content<span class="gradient-text">Craft AI</span></span>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">The ultimate AI-powered content creation assistant for modern social media influencers and digital creators.</p>
+                    <div class="flex items-center space-x-4 text-slate-400">
+                        <a href="#" class="hover:text-brand-500 transition-colors"><i class="fa-brands fa-instagram text-lg"></i></a>
+                        <a href="#" class="hover:text-brand-500 transition-colors"><i class="fa-brands fa-tiktok text-lg"></i></a>
+                        <a href="#" class="hover:text-brand-500 transition-colors"><i class="fa-brands fa-twitter text-lg"></i></a>
+                        <a href="#" class="hover:text-brand-500 transition-colors"><i class="fa-brands fa-youtube text-lg"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-white mb-4">Product</h4>
+                    <ul class="space-y-2 text-xs text-slate-400">
+                        <li><a href="#features" class="hover:text-brand-500 transition-colors">Caption Generator</a></li>
+                        <li><a href="#features" class="hover:text-brand-500 transition-colors">Hashtag Suggester</a></li>
+                        <li><a href="#features" class="hover:text-brand-500 transition-colors">Content Planner</a></li>
+                        <li><a href="#features" class="hover:text-brand-500 transition-colors">Ad Copy Writer</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-white mb-4">Resources</h4>
+                    <ul class="space-y-2 text-xs text-slate-400">
+                        <li><a href="#" class="hover:text-brand-500 transition-colors">Creator Academy</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition-colors">Viral Hook Library</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition-colors">Algorithm Updates 2026</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition-colors">Community Discord</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-white mb-4">Company</h4>
+                    <ul class="space-y-2 text-xs text-slate-400">
+                        <li><a href="#" class="hover:text-brand-500 transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition-colors">Contact Support</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-900 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
+                <p>© 2026 ContentCraft AI. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 sm:mt-0">
+                    <a href="#" class="hover:text-slate-400 transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-slate-400 transition-colors">Terms</a>
+                    <a href="#" class="hover:text-slate-400 transition-colors">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Interactive AI Demo Logic
+        let currentTool = 'caption';
+
+        function setTool(tool) {
+            currentTool = tool;
+            
+            // Reset button styles
+            document.querySelectorAll('.tool-tab').forEach(btn => {
+                btn.classList.remove('border-brand-500', 'bg-brand-500/10', 'text-brand-400');
+                btn.classList.add('border-slate-800', 'bg-slate-950', 'text-slate-400');
+            });
+
+            // Activate selected button
+            const activeBtn = document.getElementById(`btn-${tool}`);
+            activeBtn.classList.remove('border-slate-800', 'bg-slate-950', 'text-slate-400');
+            activeBtn.classList.add('border-brand-500', 'bg-brand-500/10', 'text-brand-400');
+
+            // Update input label and default value
+            const inputLabel = document.getElementById('input-label');
+            const demoInput = document.getElementById('demo-input');
+
+            if (tool === 'caption') {
+                inputLabel.textContent = "What is your post about?";
+                demoInput.value = "A healthy morning smoothie recipe for busy entrepreneurs";
+            } else if (tool === 'hashtags') {
+                inputLabel.textContent = "What is your niche or topic?";
+                demoInput.value = "Remote work productivity tips for digital nomads";
+            } else if (tool === 'ideas') {
+                inputLabel.textContent = "What is your creator niche?";
+                demoInput.value = "Personal finance and investing for beginners";
+            } else if (tool === 'bio') {
+                inputLabel.textContent = "Describe your brand or profession in a few words";
+                demoInput.value = "Fitness coach helping moms get strong at home";
+            }
+        }
+
+        function generateContent() {
+            const output = document.getElementById('demo-output');
+            const inputVal = document.getElementById('demo-input').value;
+            
+            output.innerHTML = `<div class="flex items-center space-x-2 text-brand-400"><i class="fa-solid fa-spinner fa-spin"></i><span>Crafting viral AI content...</span></div>`;
+
+            setTimeout(() => {
+                if (currentTool === 'caption') {
+                    output.innerHTML = `✨ <b>Hook:</b> Stop wasting your mornings rushing through breakfast! 🛑<br><br>Here is my 60-second green smoothie recipe that keeps me locked in and focused all morning long without the afternoon sugar crash. 🌿✨<br><br>👇 What is your go-to morning fuel? Drop it below!<br><br><span class="text-brand-400 font-mono text-xs">#MorningRoutine #HealthyLifestyle #ProductivityHacks #SmoothieRecipe</span>`;
+                } else if (currentTool === 'hashtags') {
+                    output.innerHTML = `🔥 <b>Generated Hashtag Mix (High Reach & Targeted):</b><br><br><span class="text-brand-400 font-mono text-xs">#DigitalNomadLife #RemoteWorkSetup #ProductivityTips #WorkFromAnywhere #DigitalEntrepreneur #FocusFlow #RemoteLife #WorkSmart</span>`;
+                } else if (currentTool === 'ideas') {
+                    output.innerHTML = `💡 <b>Top 3 Viral Content Ideas:</b><br>1. <b>POV:</b> You quit the 9-5 and built a remote business in 6 months (Showcase setup).<br>2. <b>3 Apps</b> I use daily that save me 10+ hours a week as a solopreneur.<br>3. Why waking up early is ruining your productivity (Unpopular opinion hook).`;
+                } else if (currentTool === 'bio') {
+                    output.innerHTML = `⚡️ <b>Optimized Bio Suggestion:</b><br>💪 Helping busy moms build strength at home 🏡<br>🔥 Ditch the gym anxiety in 15 mins/day<br>👇 Grab my Free Home Workout Guide below!<br><span class="text-accent-400 font-mono text-xs">🔗 linktr.ee/yourname</span>`;
+                }
+            }, 800);
+        }
+
+        function copyResult() {
+            const output = document.getElementById('demo-output');
+            const textToCopy = output.innerText;
+            document.execCommand('copy');
+            
+            const copyText = document.getElementById('copy-text');
+            copyText.textContent = 'Copied!';
+            setTimeout(() => {
+                copyText.textContent = 'Copy';
+            }, 2000);
+        }
+
+        // FAQ Toggle Accordion
+        function toggleFaq(id) {
+            const content = document.getElementById(`faq-content-${id}`);
+            const icon = document.getElementById(`faq-icon-${id}`);
+            
+            content.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // Subscription handler
+        function handleSubscribe() {
+            alert("Thanks for signing up! Check your inbox to claim your 14-day free trial.");
+        }
+    </script>
+
+</body></html>
